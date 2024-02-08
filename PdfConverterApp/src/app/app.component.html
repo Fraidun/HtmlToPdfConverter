@@ -1,0 +1,26 @@
+<body>
+  <div id="content">
+    <div id="htmlContent">
+      <textarea class="resizable" name="htmlTextarea" id="htmlTextarea" cols="30" rows="10" [(ngModel)]="htmlContent"></textarea>
+    </div>
+    <div id="mainContent">
+      <input type="file" #fileInput (change)="selectFile($event)" accept=".html" style="display: none;">
+      <button  (click)="fileInput.click()" class="file-button">
+        <img src="../assets/images/send-html-icon-96.png" alt="Choos your HTML File for conversion">
+      </button>
+      <button id="convertToPdf" mat-raised-button color="primary" type="submit" (click)="sendFile()">Convert</button>
+    </div>
+    <div id="convertedPdfView">
+      <iframe class="resizable" *ngIf="pdfSrc; else noFile" [src]="pdfSrc" frameborder="0"></iframe>
+      <ng-template #noFile>
+        <div id="pdfPlace" class="resizable">
+          <mat-spinner *ngIf="loading"></mat-spinner>
+          <h2>No HTML File was converted yet</h2>
+        </div>
+      </ng-template>
+      <button id="downloadFile" mat-raised-button color="warn" [disabled]="!pdfSrc" (click)="downloadPdf()">Download Generated Pdf</button>
+    </div>
+  </div>  
+</body>
+
+
